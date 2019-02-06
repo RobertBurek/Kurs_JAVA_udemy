@@ -30,3 +30,11 @@ cos innego
 printf 56
 printf 56 oraz cos na 165,40 cmentymetrów
 printf NONO oraz cos na 165,40 cmentymetrów
+1232
+
+cos innego 
+
+
+printf 56
+printf 56 oraz cos na 165,40 cmentymetrów
+printf NONO oraz cos na 165,40 cmentymetrów

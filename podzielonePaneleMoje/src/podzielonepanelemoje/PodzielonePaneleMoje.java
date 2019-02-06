@@ -181,8 +181,8 @@ public class PodzielonePaneleMoje extends JFrame
                     if (p.isFile())
           {
           System.out.println(p.getPath());
-          listaPlikow.setRows(20);
-          listaPlikow.setColumns(72);
+          listaPlikow.setRows(7);
+          listaPlikow.setColumns(73);
           listaPlikow.setText(listaPlikow.getText()+nazwaSciezki.getPath()+System.getProperty("file.separator")+listaWszyskiego[i]+"\r\n");
           
            }
