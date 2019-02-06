@@ -1,0 +1,3 @@
+Pierwsza linia z klasy WRITER
+Coś nowego w nowej linii 2
+Coś nowego w nowej linii 3

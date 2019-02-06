@@ -1,0 +1,45 @@
+
+package suwak;
+import java.awt.Toolkit;
+import javax.swing.*;
+import java.awt.event.*;
+
+public class Main extends JFrame
+{  
+   
+    public Main()
+    {
+         
+        initComponents();
+         int szer = Toolkit.getDefaultToolkit().getScreenSize().width;
+         int wys = Toolkit.getDefaultToolkit().getScreenSize().height;
+         int szerR = this.getSize().width;
+         int wysR = this.getSize().height;
+
+      
+         
+         this.setLocation((szer-szerR)/2,(wys-wysR)/2);
+
+    }
+    
+    public void initComponents()
+    {
+      this.setSize(550, 175);
+      this.setTitle("Suwaki"); 
+      
+
+       
+
+      this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+    }
+    
+   
+        
+    public static void main(String[] args) 
+    {
+        new Main().setVisible(true);
+        
+        
+    }
+    
+}
