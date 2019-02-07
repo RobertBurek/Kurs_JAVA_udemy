@@ -31,7 +31,7 @@ public class PodzialPanelu extends JFrame {
          int wysR = this.getSize().height;
 
       
-         
+
          this.setLocation((szer-szerR)/2,(wys-wysR)/2);
 
    }
@@ -59,7 +59,7 @@ public class PodzialPanelu extends JFrame {
       new Tresc("Rozdział XII", "Treść - zawartość Rozdział XII", "Krótki opis rozdziału 12")});
    static JLabel menu = new JLabel();
    JLabel tytul = new JLabel();
-   JLabel opis = new JLabel();
+   static JLabel opis = new JLabel();
    JLabel zawartoscRozdzialu = new JLabel();
    JList utwory = new JList(new String[] {"Forrest Gump", "Alicja w krainie", "Strefa Zet"});
    
@@ -132,19 +132,37 @@ public class PodzialPanelu extends JFrame {
       }
    }
    
-        
+   static void wypiszSciezki(File nazwaSciezki) {
+      String[] wszystkiePliki = nazwaSciezki.list();
+      System.out.println(nazwaSciezki.getPath());
+      for (int i = 0; i < wszystkiePliki.length; i++) {
+         File tmp = new File(nazwaSciezki.getPath(), wszystkiePliki[i]);
+         System.out.println(tmp.getPath());
+         opis.setText(opis.getText()+wszystkiePliki[i]+"\n\r");
+      }
+   } 
+   
+   
    public static void main(String[] args) {
       new PodzialPanelu().setVisible(true);
-
+      String znak = File.separator;  
       try {
-         File plik = new File("C:\\Users\\DELL\\Documents\\Forrest Gump\\IntroductionR.txt");
+         
+         File plik = new File("C:"+znak+"Users"+znak+"DELL"+znak+"Documents"+znak+"Forrest Gump"+znak+"IntroductionR.txt");
+         File folder = new File("C:"+znak+"Users"+znak+"DELL"+znak+"Documents"+znak+"Forrest Gump"+znak);
          
          if (!plik.exists())
             plik.createNewFile();
          else {
-            System.out.println("jest OK, plik istnieje");
+           // System.out.println("jest OK, plik istnieje");
             Date modyfikacja = new Date(plik.lastModified());
-            menu.setText(modyfikacja.toString()+" ilość znaków: "+plik.length());
+            menu.setText(modyfikacja.toString()+" ||   Ilość znaków: "+plik.length());
+            menu.setText(menu.getText()+" ||  ścieżka do pliku: "+plik.getPath());
+
+            wypiszSciezki(folder);
+        
+            
+
          }
          
 

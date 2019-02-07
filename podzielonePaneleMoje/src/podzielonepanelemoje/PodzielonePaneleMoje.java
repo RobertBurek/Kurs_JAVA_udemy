@@ -162,6 +162,7 @@ public class PodzielonePaneleMoje extends JFrame
     static public JScrollPane scrollPane = new JScrollPane (listaPlikow,
                      JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                      JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+    
     static void wszystkieSciezki (File nazwaSciezki)
     {
        System.out.println("---------------------------------------");
