@@ -37,7 +37,12 @@ public class PodzialPanelu extends JFrame {
    JPanel panelPrawy = new JPanel();
    JPanel panelSrodek = new JPanel();
    JPanel panelDolny = new JPanel();
-   JList spisTresci = new JList(new String[] {"Wstęp", "Rozdział I", "Rozdział II", "Rozdział III", "Rozdział IV"});
+   JList spisTresci = new JList(new Tresc[] {
+      new Tresc("Wstęp", "Treść - wstepu", "Krótki opis wstępu"),
+      new Tresc("Rozdział I", "Treść - zawartość Rozdział I", "Krótki opis rozdziału 1"), 
+      new Tresc("Rozdział II", "Treść - zawartość Rozdział II", "Krótki opis rozdziału 2"), 
+      new Tresc("Rozdział III", "Treść - zawartość Rozdział III", "Krótki opis rozdziału 3"), 
+      new Tresc("Rozdział IV", "Treść - zawartość Rozdział IV", "Krótki opis rozdziału 4")});
    JLabel tytul = new JLabel();
    JLabel opis = new JLabel();
    JList utwory = new JList(new String[] {"Forrest Gump", "Alicja w krainie", "Strefa Zet"});
@@ -71,6 +76,23 @@ public class PodzialPanelu extends JFrame {
       this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
    }
     
+   private class Tresc{
+      String podTytul, tresc, opis;
+      public Tresc (String podTytul, String tresc, String opis) {
+         this.podTytul =podTytul;
+         this.tresc =tresc;
+         this.opis =opis;
+      }
+      public String toString() {
+         return podTytul;
+      }
+      public String getTresc() {
+         return tresc;
+      }
+      public String getOpis() {
+         return opis;
+      }
+   }
    
         
    public static void main(String[] args) {
