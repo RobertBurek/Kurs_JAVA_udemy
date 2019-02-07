@@ -6,6 +6,8 @@ package podzialpanelu;
 import java.awt.Color;
 import java.awt.Toolkit;
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
@@ -45,6 +47,7 @@ public class PodzialPanelu extends JFrame {
       new Tresc("Rozdział IV", "Treść - zawartość Rozdział IV", "Krótki opis rozdziału 4")});
    JLabel tytul = new JLabel();
    JLabel opis = new JLabel();
+   JLabel zawartoscRozdzialu = new JLabel();
    JList utwory = new JList(new String[] {"Forrest Gump", "Alicja w krainie", "Strefa Zet"});
    
     
@@ -57,12 +60,34 @@ public class PodzialPanelu extends JFrame {
       panelPrawy.setBackground(Color.black);
       panelSrodek.setBackground(Color.green);
       panelDolny.setBackground(Color.gray);
+      spisTresci.setBackground(Color.yellow);
+      spisTresci.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+      zawartoscRozdzialu.setText("                                                               "
+              + "                                                                               "
+              + "                                                                         "
+              + "                                                                                 "
+              + "                           ");
       tytul.setText("Forrest Gump");
       tytul.setForeground(Color.WHITE);
       panelGorny.add(tytul);
       panelDolny.add(opis);
       panelLewy.add(spisTresci);
+      panelSrodek.add(zawartoscRozdzialu);
       panelPrawy.add(utwory);
+      spisTresci.addListSelectionListener(new ListSelectionListener() {
+
+         @Override
+         public void valueChanged(ListSelectionEvent e) {
+            if (!e.getValueIsAdjusting()){
+               Tresc zawartosc=(Tresc)((JList)e.getSource()).getSelectedValue();
+         //      opis.setText((String)((JList)e.getSource()).getSelectedValue());
+               System.out.println(((JList)e.getSource()).getSelectedValue());
+               System.out.println(zawartosc.opis);
+               opis.setText(zawartosc.opis);
+               zawartoscRozdzialu.setText(zawartosc.tresc);
+            }
+         }
+      });
       
       JSplitPane wygladG = new JSplitPane(JSplitPane.VERTICAL_SPLIT,panelMenu,panelGorny);
       JSplitPane wygladLS = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,panelLewy,panelSrodek);
