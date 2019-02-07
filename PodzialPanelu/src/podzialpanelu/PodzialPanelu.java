@@ -44,7 +44,15 @@ public class PodzialPanelu extends JFrame {
       new Tresc("Rozdział I", "Treść - zawartość Rozdział I", "Krótki opis rozdziału 1"), 
       new Tresc("Rozdział II", "Treść - zawartość Rozdział II", "Krótki opis rozdziału 2"), 
       new Tresc("Rozdział III", "Treść - zawartość Rozdział III", "Krótki opis rozdziału 3"), 
-      new Tresc("Rozdział IV", "Treść - zawartość Rozdział IV", "Krótki opis rozdziału 4")});
+      new Tresc("Rozdział IV", "Treść - zawartość Rozdział IV", "Krótki opis rozdziału 4"), 
+      new Tresc("Rozdział V", "Treść - zawartość Rozdział V", "Krótki opis rozdziału 5"), 
+      new Tresc("Rozdział VI", "Treść - zawartość Rozdział VI", "Krótki opis rozdziału 6"), 
+      new Tresc("Rozdział VII", "Treść - zawartość Rozdział VII", "Krótki opis rozdziału 7"), 
+      new Tresc("Rozdział VIII", "Treść - zawartość Rozdział VIII", "Krótki opis rozdziału 8"), 
+      new Tresc("Rozdział IX", "Treść - zawartość Rozdział IX", "Krótki opis rozdziału 9"), 
+      new Tresc("Rozdział X", "Treść - zawartość Rozdział X", "Krótki opis rozdziału 10"), 
+      new Tresc("Rozdział XI", "Treść - zawartość Rozdział XI", "Krótki opis rozdziału 11"), 
+      new Tresc("Rozdział XII", "Treść - zawartość Rozdział XII", "Krótki opis rozdziału 12")});
    JLabel tytul = new JLabel();
    JLabel opis = new JLabel();
    JLabel zawartoscRozdzialu = new JLabel();
@@ -62,11 +70,10 @@ public class PodzialPanelu extends JFrame {
       panelDolny.setBackground(Color.gray);
       spisTresci.setBackground(Color.yellow);
       spisTresci.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-      zawartoscRozdzialu.setText("                                                               "
-              + "                                                                               "
-              + "                                                                         "
-              + "                                                                                 "
-              + "                           ");
+      zawartoscRozdzialu.setText("                                                                   "
+              + "                                                                                    "
+              + "                                                                                    "
+              + "                                                                                    ");
       tytul.setText("Forrest Gump");
       tytul.setForeground(Color.WHITE);
       panelGorny.add(tytul);
