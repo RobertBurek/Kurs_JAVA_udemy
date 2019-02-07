@@ -18,15 +18,12 @@ public class PodzielonePaneleMoje extends JFrame
    
     public PodzielonePaneleMoje()
     {
-         
         initComponents();
          int szer = Toolkit.getDefaultToolkit().getScreenSize().width;
          int wys = Toolkit.getDefaultToolkit().getScreenSize().height;
          int szerR = this.getSize().width;
          int wysR = this.getSize().height;
 
-      
-         
          this.setLocation((szer-szerR)/2,(wys-wysR)/2);
 
     }
@@ -95,6 +92,7 @@ public class PodzielonePaneleMoje extends JFrame
          this.opis = opis;
          obrazek = new ImageIcon(nazwa+".gif");
       }  
+      @Override
       public String toString()
       {
          return nazwa;
@@ -109,7 +107,8 @@ public class PodzielonePaneleMoje extends JFrame
       }
    }
      static        File plik2 = new File("Nowy" + File.separator + "podkatalog1" + File.separator + "podkatalog2","tekst2.txt");
-    public static void main(String[] args) 
+    
+     public static void main(String[] args) 
     {
        try {
           new PodzielonePaneleMoje().setVisible(true);
