@@ -5,6 +5,9 @@ package podzialpanelu;
 
 import java.awt.Color;
 import java.awt.Toolkit;
+import java.io.File;
+import java.io.IOException;
+import java.util.Date;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -40,11 +43,12 @@ public class PodzialPanelu extends JFrame {
    JPanel panelSrodek = new JPanel();
    JPanel panelDolny = new JPanel();
    JList spisTresci = new JList(new Tresc[] {
-      new Tresc("Wstęp", "Treść - wstepu", "Krótki opis wstępu"),
-      new Tresc("Rozdział I", "Treść - zawartość Rozdział I", "Krótki opis rozdziału 1"), 
-      new Tresc("Rozdział II", "Treść - zawartość Rozdział II", "Krótki opis rozdziału 2"), 
-      new Tresc("Rozdział III", "Treść - zawartość Rozdział III", "Krótki opis rozdziału 3"), 
-      new Tresc("Rozdział IV", "Treść - zawartość Rozdział IV", "Krótki opis rozdziału 4"), 
+      new Tresc("Wprowadzenie", "Treść - wprowadzenia", "Krótki opis wprowadzenia"),
+      new Tresc("Spis treści", "Treść - spisu treści", "Krótki opis spisu treści"),
+      new Tresc("Chapter I", "Treść - zawartość Rozdział I", "Krótki opis rozdziału 1"), 
+      new Tresc("Chapter II", "Treść - zawartość Rozdział II", "Krótki opis rozdziału 2"), 
+      new Tresc("Chapter III", "Treść - zawartość Rozdział III", "Krótki opis rozdziału 3"), 
+      new Tresc("Chapter IV", "Treść - zawartość Rozdział IV", "Krótki opis rozdziału 4"), 
       new Tresc("Rozdział V", "Treść - zawartość Rozdział V", "Krótki opis rozdziału 5"), 
       new Tresc("Rozdział VI", "Treść - zawartość Rozdział VI", "Krótki opis rozdziału 6"), 
       new Tresc("Rozdział VII", "Treść - zawartość Rozdział VII", "Krótki opis rozdziału 7"), 
@@ -53,6 +57,7 @@ public class PodzialPanelu extends JFrame {
       new Tresc("Rozdział X", "Treść - zawartość Rozdział X", "Krótki opis rozdziału 10"), 
       new Tresc("Rozdział XI", "Treść - zawartość Rozdział XI", "Krótki opis rozdziału 11"), 
       new Tresc("Rozdział XII", "Treść - zawartość Rozdział XII", "Krótki opis rozdziału 12")});
+   static JLabel menu = new JLabel();
    JLabel tytul = new JLabel();
    JLabel opis = new JLabel();
    JLabel zawartoscRozdzialu = new JLabel();
@@ -76,6 +81,8 @@ public class PodzialPanelu extends JFrame {
               + "                                                                                    ");
       tytul.setText("Forrest Gump");
       tytul.setForeground(Color.WHITE);
+      panelMenu.add(menu);
+      menu.setText(" ");
       panelGorny.add(tytul);
       panelDolny.add(opis);
       panelLewy.add(spisTresci);
@@ -87,9 +94,8 @@ public class PodzialPanelu extends JFrame {
          public void valueChanged(ListSelectionEvent e) {
             if (!e.getValueIsAdjusting()){
                Tresc zawartosc=(Tresc)((JList)e.getSource()).getSelectedValue();
-         //      opis.setText((String)((JList)e.getSource()).getSelectedValue());
-               System.out.println(((JList)e.getSource()).getSelectedValue());
-               System.out.println(zawartosc.opis);
+          //     System.out.println(((JList)e.getSource()).getSelectedValue());
+         //      System.out.println(zawartosc.opis);
                opis.setText(zawartosc.opis);
                zawartoscRozdzialu.setText(zawartosc.tresc);
             }
@@ -128,8 +134,24 @@ public class PodzialPanelu extends JFrame {
    
         
    public static void main(String[] args) {
-      
-        new PodzialPanelu().setVisible(true);
+      new PodzialPanelu().setVisible(true);
+
+      try {
+         File plik = new File("C:\\Users\\DELL\\Documents\\Forrest Gump\\IntroductionR.txt");
+         
+         if (!plik.exists())
+            plik.createNewFile();
+         else {
+            System.out.println("jest OK, plik istnieje");
+            Date modyfikacja = new Date(plik.lastModified());
+            menu.setText(modyfikacja.toString()+" ilość znaków: "+plik.length());
+         }
+         
+
+      } catch (IOException ex) {
+         System.out.println(ex.getMessage());
+      }
+
    }
     
 }
