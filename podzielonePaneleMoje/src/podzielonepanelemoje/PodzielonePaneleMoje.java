@@ -106,7 +106,7 @@ public class PodzielonePaneleMoje extends JFrame
          return opis;
       }
    }
-     static        File plik2 = new File("Nowy" + File.separator + "podkatalog1" + File.separator + "podkatalog2","tekst2.txt");
+     static  File plik2 = new File("Nowy" + File.separator + "podkatalog1" + File.separator + "podkatalog2","tekst2.txt");
     
      public static void main(String[] args) 
     {
