@@ -14,7 +14,7 @@ public class Main extends JFrame
     public void initComponents()
     {
         this.setTitle("Działania");
-        this.setBounds(300, 300, 300, 200);
+        this.setBounds(300, 300, 500, 400);
         this.setJMenuBar(pasekMenu);
         
         JMenu menuPlik = pasekMenu.add(new JMenu("Plik"));

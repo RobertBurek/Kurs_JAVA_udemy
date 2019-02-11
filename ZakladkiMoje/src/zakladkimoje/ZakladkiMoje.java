@@ -27,7 +27,7 @@ public class ZakladkiMoje extends JFrame
     public void initComponents()
     {
       this.setSize(550, 175);
-      this.setTitle("Suwaki"); 
+      this.setTitle("Zakładki"); 
       //1
       zakladki.addTab("Zakładka1",new JLabel("Pierwsza zakładka jest tutaj."));
       //2

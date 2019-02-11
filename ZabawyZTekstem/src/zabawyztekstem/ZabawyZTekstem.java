@@ -30,7 +30,7 @@ class Okno extends JFrame
   public Okno()
   {
     setTitle("Elementy okna");
-    setSize(240,400);
+    setSize(340,400);
     //do??czenie panelu do powierzchni zawarto?ci okna
     MojPanel p=new MojPanel(); 
     Container powzaw=getContentPane(); //powierzchnia zawarto?ci
