@@ -29,6 +29,8 @@ public class NewJDialog extends javax.swing.JDialog {
       jSplitPane2 = new javax.swing.JSplitPane();
       jInternalFrame1 = new javax.swing.JInternalFrame();
       jLabel1 = new javax.swing.JLabel();
+      jCheckBox1 = new javax.swing.JCheckBox();
+      jCheckBox2 = new javax.swing.JCheckBox();
       jMenuBar1 = new javax.swing.JMenuBar();
       jMenu1 = new javax.swing.JMenu();
       jMenu2 = new javax.swing.JMenu();
@@ -56,6 +58,10 @@ public class NewJDialog extends javax.swing.JDialog {
       jLabel1.setForeground(new java.awt.Color(0, 51, 255));
       jLabel1.setText("jLabel1");
 
+      jCheckBox1.setText("jCheckBox1");
+
+      jCheckBox2.setText("jCheckBox2");
+
       jMenu1.setText("File");
       jMenuBar1.add(jMenu1);
 
@@ -74,14 +80,24 @@ public class NewJDialog extends javax.swing.JDialog {
          .addGroup(layout.createSequentialGroup()
             .addContainerGap()
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addComponent(jSplitPane1)
+               .addGroup(layout.createSequentialGroup()
+                  .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                     .addComponent(jSplitPane1)
+                     .addComponent(jInternalFrame1))
+                  .addContainerGap())
                .addGroup(layout.createSequentialGroup()
                   .addComponent(jSplitPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 549, javax.swing.GroupLayout.PREFERRED_SIZE)
                   .addGap(18, 18, 18)
                   .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE)
-                  .addGap(0, 8, Short.MAX_VALUE))
-               .addComponent(jInternalFrame1))
-            .addContainerGap())
+                  .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                     .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jCheckBox1)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jCheckBox2)
+                        .addContainerGap())))))
       );
       layout.setVerticalGroup(
          layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -91,7 +107,11 @@ public class NewJDialog extends javax.swing.JDialog {
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addComponent(jSplitPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-               .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE))
+               .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
+               .addGroup(layout.createSequentialGroup()
+                  .addComponent(jCheckBox1)
+                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                  .addComponent(jCheckBox2)))
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addComponent(jInternalFrame1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -143,6 +163,8 @@ public class NewJDialog extends javax.swing.JDialog {
     }
 
    // Variables declaration - do not modify//GEN-BEGIN:variables
+   private javax.swing.JCheckBox jCheckBox1;
+   private javax.swing.JCheckBox jCheckBox2;
    private javax.swing.JInternalFrame jInternalFrame1;
    private javax.swing.JLabel jLabel1;
    private javax.swing.JMenu jMenu1;
