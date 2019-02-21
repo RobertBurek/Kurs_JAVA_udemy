@@ -4,31 +4,21 @@
 package podzialpanelu;
 
 import java.awt.Color;
-import java.awt.Dialog.ModalityType;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.GridLayout;
-import java.awt.Point;
-import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.*;
-import java.awt.geom.Rectangle2D;
 import java.io.*;
 import java.util.Date;
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.StringTokenizer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.event.AncestorEvent;
 import javax.swing.event.AncestorListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.StyleConstants;
-
 
 /**
  *
@@ -39,17 +29,12 @@ public final class PodzialPanelu extends JFrame {
 
  
    public PodzialPanelu() {
-         
          initComponents();
          int szer = Toolkit.getDefaultToolkit().getScreenSize().width;
          int wys = Toolkit.getDefaultToolkit().getScreenSize().height;
          int szerR = this.getSize().width;
          int wysR = this.getSize().height;
-
-      
-
          this.setLocation((szer-szerR)/2,(wys-wysR)/2);
-
    }
    
    Boolean widac;
@@ -99,16 +84,16 @@ public final class PodzialPanelu extends JFrame {
    JCheckBox slowka = new JCheckBox("Słówka");
    JCheckBox zdania = new JCheckBox("Zdania");
    JCheckBox porownaj = new JCheckBox("Porównaj");
-    String[] slowaPolskie= new String[150000];
-    String[] zdaniaPolskie= new String[150000];
+   static String[] slowaPolskie= new String[150000];
+   static String[] zdaniaPolskie= new String[150000];
     Boolean flagaWidacZdanie = false;
+    int pozycjaSlowa;
    
    
     
    public void initComponents() {
       this.setSize(1300, 800);
       this.setTitle("Podział panelu"); 
-
       JSplitPane wygladG = new JSplitPane(JSplitPane.VERTICAL_SPLIT,panelMenu,panelGorny);
       JSplitPane wygladLS = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,panelLewy,panelSrodek);
       JSplitPane wygladS = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,wygladLS,panelPrawy);
@@ -148,6 +133,8 @@ public final class PodzialPanelu extends JFrame {
 
       zawartoscRozdzialu.setLineWrap(true);
       zawartoscRozdzialu.setWrapStyleWord(true);
+      dymek.setLineWrap(true);
+      dymek.setWrapStyleWord(true);
       zawartoscRozdzialu.setEditable(false);
       
 
@@ -185,40 +172,33 @@ public final class PodzialPanelu extends JFrame {
       dymek.setForeground(Color.WHITE);
       dymek.setBorder(BorderFactory.createLineBorder(Color.RED, 3));
       dymek.setBackground(Color.black);
-
+      dymek.setEditable(false);
       dymek.setVisible(false);
-      
-//                  zawartoscRozdzialu.addMouseMotionListener(new MouseMotionListener() {
-//                     @Override
-//                     public void mouseDragged(MouseEvent e) {
-//                        dymek.setBounds(rozmiarPozycjaDYMKA.rozmiarPozycjaDYMKA(dymek,zawartoscRozdzialu,e.getX(),e.getY()));
-//                        dymek.setVisible(true);
-//                     }
-//
-//                     @Override
-//                     public void mouseMoved(MouseEvent e) {
-//                     }
-//                  });
-      
-      
+                  zawartoscRozdzialu.addMouseMotionListener(new MouseMotionListener() {
+                     @Override
+                     public void mouseDragged(MouseEvent e) {
+                        dymek.setBounds(rozmiarPozycjaDYMKA.rozmiarPozycjaDYMKA(dymek,zawartoscRozdzialu,e.getX(),e.getY()));
+                        dymek.setVisible(true);
+                     }
+                     @Override
+                     public void mouseMoved(MouseEvent e) {
+                        if (flagaWidacZdanie) {
+                        dymek.setBounds(rozmiarPozycjaDYMKA.rozmiarPozycjaDYMKA(dymek,zawartoscRozdzialu,e.getX(),e.getY()));
+                        dymek.setVisible(true);}
+                     }
+                  });
       
       zawartoscRozdzialu.addMouseListener(new MouseListener() {
          @Override
          public void mouseClicked(MouseEvent e) {
-      //      System.out.println(rozmiarPozycjaDYMKA.cos("BLABLABLA"));
-        //    dymek.setBounds(rozmiarPozycjaDYMKA(dymek,zawartoscRozdzialu,e.getX(),e.getY()));
-            
-                    flagaWidacZdanie = false;
+            flagaWidacZdanie = false;
          }
          @Override
          public void mousePressed(MouseEvent e) {
 
-            int pozycjaSlowa = zawartoscRozdzialu.getCaretPosition();
+            pozycjaSlowa = zawartoscRozdzialu.getCaretPosition();
             int pX = e.getX();
             int pY = e.getY();
-//            if (pY<=25) pY=27; else
-//            if ((25<pY)&(pY<51)) pY=53; else pY=e.getY()-50;
-//            if (pX>zawartoscRozdzialu.getWidth()-100) pX=zawartoscRozdzialu.getWidth()-100;
             if (e.getButton() == MouseEvent.BUTTON1) {
                try {
                   int poczTekstu=zawartoscRozdzialu.getCaretPosition();
@@ -238,36 +218,14 @@ public final class PodzialPanelu extends JFrame {
                } catch (BadLocationException ex) {
                   System.out.println(ex);
                }
-           //    dymek.setBorder(BorderFactory.createLineBorder(Color.RED, 3));
-           //    dymek.setBackground(Color.black);
                dymek.setText(slowaPolskie[pozycjaSlowa]);
-//    FontMetrics metrics = dymek.getFontMetrics(dymek.getFont());
-//    Rectangle2D bounds = metrics.getStringBounds(dymek.getText(), null); 
-//    int widthInPixels = (int) bounds.getWidth(); 
-        //       if (zawartoscRozdzialu.getSelectedText()!=null) {
-           //    if (widthInPixels<4) widthInPixels=-8;
-            //   dymek.setBounds(pX,pY, widthInPixels+8, 33);
-               
-               zawartoscRozdzialu.addMouseMotionListener(new MouseMotionListener() {
-                  @Override
-                  public void mouseDragged(MouseEvent e) {
-                 dymek.setVisible(true);
-                 dymek.setBounds(rozmiarPozycjaDYMKA.rozmiarPozycjaDYMKA(dymek,zawartoscRozdzialu,e.getX(),e.getY()));
-              //   dymek.setVisible(false);
-                  }
-                  @Override
-                  public void mouseMoved(MouseEvent e) {
-                  }
-               });
-               
                 dymek.setBounds(rozmiarPozycjaDYMKA.rozmiarPozycjaDYMKA(dymek,zawartoscRozdzialu,e.getX(),e.getY()));
                  dymek.setVisible(true);
-            //   }
             }
          }
          @Override
          public void mouseReleased(MouseEvent e) {
-            int pozycjaZdania = zawartoscRozdzialu.getCaretPosition();            
+            int pozycjaZdania = pozycjaSlowa;           
             dymek.setVisible(false);
             String calyTekst;
               if (zawartoscRozdzialu.getSelectedText()!=null) {
@@ -306,31 +264,12 @@ public final class PodzialPanelu extends JFrame {
                      }
                      konTekstu=konTekstu+1;
                   zawartoscRozdzialu.select(poczTekstu,konTekstu);
-                //  System.out.println(poczTekstu+" - "+konTekstu);
-               //   System.out.println(zawartoscRozdzialu.getSelectedText());
                   if (zawartoscRozdzialu.getSelectedText().length() > 0) {
                     flagaWidacZdanie = true;
                   dymek.setText(zdaniaPolskie[pozycjaZdania]);
-                  zawartoscRozdzialu.addMouseMotionListener(new MouseMotionListener() {
-                     @Override
-                     public void mouseDragged(MouseEvent e) {
-            //            dymek.setBounds(rozmiarPozycjaDYMKA.rozmiarPozycjaDYMKA(dymek,zawartoscRozdzialu,e.getX(),e.getY()));
-              //          dymek.setVisible(true);
-                     }
-
-                     @Override
-                     public void mouseMoved(MouseEvent e) {
-                        if (flagaWidacZdanie) {
-                        dymek.setBounds(rozmiarPozycjaDYMKA.rozmiarPozycjaDYMKA(dymek,zawartoscRozdzialu,e.getX(),e.getY()));
-                        dymek.setVisible(true);}
-                     }
-                  });
                   dymek.setBounds(rozmiarPozycjaDYMKA.rozmiarPozycjaDYMKA(dymek,zawartoscRozdzialu,e.getX(),e.getY()));
                   dymek.setVisible(true);
                   }
-              //    dymek.setBounds(rozmiarPozycjaDYMKA.rozmiarPozycjaDYMKA(dymek,zawartoscRozdzialu,e.getX(),e.getY()));
-                //  dymek.setVisible(true);
-                  //  System.out.println(zawartoscRozdzialu.getCaret());
                } catch (BadLocationException ex) {
                   System.out.println(ex);
                }
@@ -349,16 +288,12 @@ public final class PodzialPanelu extends JFrame {
       zawartoscRozdzialu.addAncestorListener(new AncestorListener() {
          @Override
          public void ancestorAdded(AncestorEvent event) {
-          //  System.out.println("1 akcja");
-          //  System.out.println(event.getSource());
          }
          @Override
          public void ancestorRemoved(AncestorEvent event) {
-          //  System.out.println("2 akcja");
          }
          @Override
          public void ancestorMoved(AncestorEvent event) {
-          //  System.out.println("3 akcja");
          }
       });
       
@@ -384,13 +319,8 @@ public final class PodzialPanelu extends JFrame {
          }
       });
 
-      
       panelPrawy.setLayout(new GridLayout(10, 1));
-      
-      //dymekNew.setVisible(false);
-      
       zawartoscRozdzialu.add(dymek);
-     // zawartoscRozdzialu.add(dymekNew);
       slowka.setSelected(false);
       zdania.setSelected(true);
       porownaj.setSelected(false);
@@ -412,6 +342,8 @@ public final class PodzialPanelu extends JFrame {
       });
       
       spisTresci.addListSelectionListener((ListSelectionEvent e) -> {
+         dymek.setVisible(false);
+         flagaWidacZdanie = false;
          if (!e.getValueIsAdjusting()){
             wyborListy=(Tresc)((JList)e.getSource()).getSelectedValue();
             czytajRozdzial("C:\\Users\\DELL\\Documents\\Forrest Gump\\" + wyborListy.tytulAN + ".txt");
@@ -420,7 +352,6 @@ public final class PodzialPanelu extends JFrame {
             if (slowka.isSelected()) {
                wyborListy=(Tresc)((JList)e.getSource()).getSelectedValue();
                listaPomocniczaSlowek("C:\\Users\\DELL\\Documents\\Forrest Gump\\" + wyborListy.tytulAN + ".txt",oknoANG);
-              // czytajPlikSlowka("C:\\Users\\DELL\\Documents\\Forrest Gump\\" + wyborListy.tytulAN + "_S.txt",oknoPOL);
             } else {
                czytajPlik("C:\\Users\\DELL\\Documents\\Forrest Gump\\" + wyborListy.tytulAN + ".txt",oknoANG);
                czytajPlik("C:\\Users\\DELL\\Documents\\Forrest Gump\\" + wyborListy.tytulPL + ".txt",oknoPOL);
@@ -474,12 +405,6 @@ public final class PodzialPanelu extends JFrame {
             Scanner scanerA = new Scanner(oknoA.getText());
             Scanner scanerP = new Scanner(oknoP.getText());
             while (scanerA.hasNext()){
-               //   if (scanerA.nextLine()==null) System.out.println("było");
-               //  if (scanerP.nextLine()==null) tmp.write(" | \n");
-               //  else tmp.write(" |"+scanerP.nextLine()+"\n");
-               //    } //else
-               //    if (scanerP.nextLine()==null) scanerP.nextLine().concat(scanerA.nextLine());
-               //  if (scanerP.nextLine()==null) tmp.write(" | \n");
                tmpOut.write(scanerA.nextLine()+" | "+scanerP.nextLine()+"\n");
             }
             tmpOut.close();
@@ -487,7 +412,6 @@ public final class PodzialPanelu extends JFrame {
       } catch (IOException ex) {
          System.out.println(ex.getMessage());
       } finally {
-      //   tmpOut.close(); 
       } 
    }
    
@@ -497,7 +421,6 @@ public final class PodzialPanelu extends JFrame {
          try (BufferedReader tmpPomSlowka = new BufferedReader(new FileReader(sciezkaPomSlowka))) {
             tmpArea = new JTextArea();
             String tmpTresc;
-         //   System.out.println(tmpPomSlowka.readLine());
             while ((tmpTresc = tmpPomSlowka.readLine()) != null){
                if (tmpTresc.length() == 0) tmpTresc = " ";
                tmpArea.setText(tmpArea.getText()+ tmpTresc.replace(" ", "\n"));
@@ -505,14 +428,14 @@ public final class PodzialPanelu extends JFrame {
             tmpPomSlowka.close();  
          }
             oknoA.setText(tmpArea.getText());
-         oknoA.select(0, 0);
+         oknoA.select(PROPERTIES, PROPERTIES);
       } catch (IOException ex) {
          System.out.println(ex.getMessage());
       }  finally {
       }
    }
    
-   void wczytaj_Sl_ZD(String sciezkaSlowka, String[] tablica){
+   static void wczytaj_Sl_ZD(String sciezkaSlowka, String[] tablica){
       try {
          try (BufferedReader tmpInSlowkaZdania = new BufferedReader(new FileReader(sciezkaSlowka))) {
             String tmpLinia;
@@ -527,11 +450,9 @@ public final class PodzialPanelu extends JFrame {
                   slowo_zdanie_A=token.nextToken();
                   slowo_zdanie_P=token.nextToken().trim();
                   tablica[i]=slowo_zdanie_P;
-                 // System.out.println(i+"! "+slowo_zdanie_P);
                   if (!slowo_zdanie_A.equals(" ")) {
                      for (j=1;j<slowo_zdanie_A.length(); j++){
                        tablica[i+j]=slowo_zdanie_P;
-                   //    System.out.println((i+j)+"|"+j+"| "+slowo_zdanie_P);
                      }
                      i=(i+j)-1;
                   }
@@ -543,49 +464,43 @@ public final class PodzialPanelu extends JFrame {
       } catch (IOException ex) {
          System.out.println(ex.getMessage());
       } finally {
-      //   tmpInpSlowka.close();
       }
    }
   
    
    static void czytajPlik(String rozdzial, JTextArea okno){
       try {
-         BufferedReader tmp = new BufferedReader(new FileReader(rozdzial));
-         String tmpTresc = "";
-         okno.setText("");
-         while ((tmpTresc = tmp.readLine()) != null){
-            if (tmpTresc.length() == 0) tmpTresc = "";
-            okno.setText(okno.getText()+ tmpTresc+"\n");
+         try (BufferedReader tmp = new BufferedReader(new FileReader(rozdzial))) {
+            String tmpTresc;
+            okno.setText("");
+            while ((tmpTresc = tmp.readLine()) != null){
+               if (tmpTresc.length() == 0) tmpTresc = "";
+               okno.setText(okno.getText()+ tmpTresc+"\n");
+            }
+            tmp.close();
          }
-       //  System.out.println(angPane.getVerticalScrollBar().getValue());
-       //  System.out.println(angPane.getHorizontalScrollBar().getValue());
-
-         tmp.close();
          okno.select(PROPERTIES, PROPERTIES);
-         //okno.select(20, 40);
       } catch (IOException ex) {
          System.out.println(ex.getMessage());
       } finally {
-      //   tmp.close();
       }
    }
 
    static void czytajRozdzial(String rozdzial){
       try {
-         BufferedReader czytajRozdzial = new BufferedReader(new FileReader(rozdzial));
-         String tmpTresc = "";
-         zawartoscRozdzialu.setText("");
-         while ((tmpTresc = czytajRozdzial.readLine()) != null){
-            if (tmpTresc.length() == 0) tmpTresc = "\n";
-            zawartoscRozdzialu.setText(zawartoscRozdzialu.getText()+ tmpTresc);
+         try (BufferedReader czytajRozdzial = new BufferedReader(new FileReader(rozdzial))) {
+            String tmpTresc;
+            zawartoscRozdzialu.setText("");
+            while ((tmpTresc = czytajRozdzial.readLine()) != null){
+               if (tmpTresc.length() == 0) tmpTresc = "\n";
+               zawartoscRozdzialu.setText(zawartoscRozdzialu.getText()+ tmpTresc);
+            }
+            czytajRozdzial.close();
          }
-         
-         czytajRozdzial.close();
-         zawartoscRozdzialu.select(0, 0);
+         zawartoscRozdzialu.select(PROPERTIES, PROPERTIES);
       } catch (IOException ex) {
          System.out.println(ex.getMessage());
       }  finally {
-      //   czytajRozdzial.close();
       }
    }
    
@@ -601,35 +516,29 @@ public final class PodzialPanelu extends JFrame {
       } catch (IOException ex) {
          System.out.println(ex.getMessage());
       } finally {
-      //   tmp.close(); 
       } 
    }
    
    public static void main(String[] args) {
-       czytajRozdzial("C:\\Users\\DELL\\Documents\\Forrest Gump\\Spis treści.txt");
-     // zawartoscRozdzialu.select(1,3);
-     // zawartoscRozdzialu.selectAll();
+       czytajRozdzial("C:\\Users\\DELL\\Documents\\Forrest Gump\\Contents.txt");
+       wczytaj_Sl_ZD("C:\\Users\\DELL\\Documents\\Forrest Gump\\Contents_slowka.txt", slowaPolskie);
+       wczytaj_Sl_ZD("C:\\Users\\DELL\\Documents\\Forrest Gump\\Contents_zdania.txt", zdaniaPolskie);
       new PodzialPanelu().setVisible(true);
       String znak = File.separator;  
       try {
-         
-         File plik = new File("C:"+znak+"Users"+znak+"DELL"+znak+"Documents"+znak+"Forrest Gump"+znak+"IntroductionR.txt");
-         File folder = new File("C:"+znak+"Users"+znak+"DELL"+znak+"Documents"+znak+"Forrest Gump"+znak);
-         
+         File plik = new File("C:" + znak + "Users" + znak + "DELL" + znak + "Documents" + znak + "Forrest Gump" + znak + "IntroductionR.txt");
+         File folder = new File("C:" + znak + "Users" + znak + "DELL" + znak + "Documents" + znak + "Forrest Gump" + znak);
          if (!plik.exists())
             plik.createNewFile();
          else {
-           // System.out.println("jest OK, plik istnieje");
             Date modyfikacja = new Date(plik.lastModified());
-            menu.setText(modyfikacja.toString()+" ||   Ilość znaków: "+plik.length());
-            menu.setText(menu.getText()+" ||  ścieżka do pliku: "+plik.getPath());
-
+            menu.setText(modyfikacja.toString() + " ||   Ilość znaków: " + plik.length());
+            menu.setText(menu.getText() + " ||  ścieżka do pliku: " + plik.getPath());
             wypiszSciezki(folder);
          }
       } catch (IOException ex) {
          System.out.println(ex.getMessage());
       }
-
    }
     
 }

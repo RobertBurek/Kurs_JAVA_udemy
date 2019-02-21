@@ -19,12 +19,17 @@ import javax.swing.JTextArea;
       int widthInPixels = (int) bounds.getWidth(); 
       int heightInPixels = (int) bounds.getHeight(); 
       pozycjaWymiar.width = widthInPixels + 10;
-      pozycjaWymiar.height = heightInPixels + 10;
-      if (widthInPixels<4) pozycjaWymiar.width = 0;
       pozycjaWymiar.x = pozX - (widthInPixels + 10)/2;
-      
+      int ileWierszy = 1;
+      if (widthInPixels > TextAreaParend.getWidth() - 50) {
+         ileWierszy = (int) (widthInPixels/(TextAreaParend.getWidth() - 50)) + 1;
+         pozycjaWymiar.width = TextAreaParend.getWidth() - 50;
+         pozycjaWymiar.x = pozX - (pozycjaWymiar.width)/2;
+      }
+      pozycjaWymiar.height = heightInPixels * ileWierszy + 10;
+      if (widthInPixels<4) pozycjaWymiar.width = 0;
       if (pozY <= 25) pozycjaWymiar.y = 27; else
-      pozycjaWymiar.y = pozY - 57;
+      pozycjaWymiar.y = pozY - 30 - (27 * ileWierszy);
       return pozycjaWymiar;
    }
    
