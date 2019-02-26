@@ -5,12 +5,12 @@ import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 import javax.swing.JTextArea;
 
- class rozmiarPozycjaDYMKA {
-   
+ class Dymek {
+
    static String cos (String ddd){
       return " i co , można ---" + ddd;
    }
-   
+
    @SuppressWarnings("null")
    static Rectangle rozmiarPozycjaDYMKA (JTextArea TextArea, JTextArea TextAreaParend, int pozX, int pozY){
       Rectangle pozycjaWymiar = TextArea.getBounds();

@@ -7,9 +7,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.List;
 import java.awt.Toolkit;
 import java.awt.event.*;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 import java.util.StringTokenizer;
@@ -45,7 +47,7 @@ public final class PodzialPanelu extends JFrame {
    JPanel panelSrodek = new JPanel();
    JPanel panelDolny = new JPanel();
    JList spisTresci = new JList(new Tresc[] {
-      new Tresc("Introduction", "Wprowadzenie", "Krótki opis wprowadzenia"),
+      new Tresc("IntroductionR", "Wprowadzenie", "Krótki opis wprowadzenia"),
       new Tresc("Contents", "Spisu treści", "Krótki opis spisu treści"),
       new Tresc("Chapter 1", "Część 1", "Krótki opis rozdziału 1"), 
       new Tresc("Chapter 2", "Część 2", "Krótki opis rozdziału 2"), 
@@ -88,6 +90,8 @@ public final class PodzialPanelu extends JFrame {
    static String[] zdaniaPolskie= new String[150000];
     Boolean flagaWidacZdanie = false;
     int pozycjaSlowa;
+    static ArrayList<String> Slowa= new ArrayList<String>();
+    static ArrayList<String> Zdania= new ArrayList<String>();
    
    
     
@@ -177,13 +181,14 @@ public final class PodzialPanelu extends JFrame {
                   zawartoscRozdzialu.addMouseMotionListener(new MouseMotionListener() {
                      @Override
                      public void mouseDragged(MouseEvent e) {
-                        dymek.setBounds(rozmiarPozycjaDYMKA.rozmiarPozycjaDYMKA(dymek,zawartoscRozdzialu,e.getX(),e.getY()));
-                        dymek.setVisible(true);
+                        dymek.setBounds(Dymek.rozmiarPozycjaDYMKA(dymek,zawartoscRozdzialu,e.getX(),e.getY()));
+                     //   dymek.setVisible(true);
+                        flagaWidacZdanie = false;
                      }
                      @Override
                      public void mouseMoved(MouseEvent e) {
                         if (flagaWidacZdanie) {
-                        dymek.setBounds(rozmiarPozycjaDYMKA.rozmiarPozycjaDYMKA(dymek,zawartoscRozdzialu,e.getX(),e.getY()));
+                        dymek.setBounds(Dymek.rozmiarPozycjaDYMKA(dymek,zawartoscRozdzialu,e.getX(),e.getY()));
                         dymek.setVisible(true);}
                      }
                   });
@@ -195,7 +200,6 @@ public final class PodzialPanelu extends JFrame {
          }
          @Override
          public void mousePressed(MouseEvent e) {
-
             pozycjaSlowa = zawartoscRozdzialu.getCaretPosition();
             int pX = e.getX();
             int pY = e.getY();
@@ -210,7 +214,7 @@ public final class PodzialPanelu extends JFrame {
                      }
                      znakTekstu=zawartoscRozdzialu.getText(konTekstu,1);
                      while (!znakTekstu.equals(" ")) {
-                        System.out.println(konTekstu+" - "+znakTekstu);
+                     //   System.out.println(konTekstu+" - "+znakTekstu);
                      konTekstu=konTekstu+1;
                      znakTekstu = zawartoscRozdzialu.getText(konTekstu,1);
                      }
@@ -218,10 +222,11 @@ public final class PodzialPanelu extends JFrame {
                } catch (BadLocationException ex) {
                   System.out.println(ex);
                }
-               dymek.setText(slowaPolskie[pozycjaSlowa]);
-                dymek.setBounds(rozmiarPozycjaDYMKA.rozmiarPozycjaDYMKA(dymek,zawartoscRozdzialu,e.getX(),e.getY()));
+               //dymek.setText(slowaPolskie[pozycjaSlowa]);
+               dymek.setText(Slowa.get(pozycjaSlowa));
+                dymek.setBounds(Dymek.rozmiarPozycjaDYMKA(dymek,zawartoscRozdzialu,e.getX(),e.getY()));
                  dymek.setVisible(true);
-            }
+            } 
          }
          @Override
          public void mouseReleased(MouseEvent e) {
@@ -233,7 +238,6 @@ public final class PodzialPanelu extends JFrame {
             if (calyTekst.contains(" ")) {
                try {
                   int poczTekstu=zawartoscRozdzialu.getSelectionStart();
-                  System.out.println(zawartoscRozdzialu.getSelectionStart());
                   int konTekstu=zawartoscRozdzialu.getSelectionStart();
                   String znakTekstu=zawartoscRozdzialu.getText(poczTekstu-1,2);
                      while (!znakTekstu.equals(". ")) {
@@ -246,7 +250,6 @@ public final class PodzialPanelu extends JFrame {
                      poczTekstu=poczTekstu+1;
                      znakTekstu=zawartoscRozdzialu.getText(konTekstu,2);
                      while (!znakTekstu.equals(". ")) {
-                        System.out.println(konTekstu+" - "+znakTekstu);
                      konTekstu=konTekstu+1;
                      znakTekstu = zawartoscRozdzialu.getText(konTekstu,2);
                      if (znakTekstu.equals("  ")) {
@@ -254,11 +257,9 @@ public final class PodzialPanelu extends JFrame {
                         break;
                      }
                      if (znakTekstu.equals("! ")) {
-                        konTekstu=konTekstu;
                         break;
                      }
                      if (znakTekstu.equals("? ")) {
-                        konTekstu=konTekstu;
                         break;
                      }
                      }
@@ -266,8 +267,9 @@ public final class PodzialPanelu extends JFrame {
                   zawartoscRozdzialu.select(poczTekstu,konTekstu);
                   if (zawartoscRozdzialu.getSelectedText().length() > 0) {
                     flagaWidacZdanie = true;
-                  dymek.setText(zdaniaPolskie[pozycjaZdania]);
-                  dymek.setBounds(rozmiarPozycjaDYMKA.rozmiarPozycjaDYMKA(dymek,zawartoscRozdzialu,e.getX(),e.getY()));
+                  //dymek.setText(zdaniaPolskie[pozycjaZdania]);
+                  dymek.setText(Zdania.get(pozycjaZdania));
+                  dymek.setBounds(Dymek.rozmiarPozycjaDYMKA(dymek,zawartoscRozdzialu,e.getX(),e.getY()));
                   dymek.setVisible(true);
                   }
                } catch (BadLocationException ex) {
@@ -285,37 +287,38 @@ public final class PodzialPanelu extends JFrame {
 
       });
       
-      zawartoscRozdzialu.addAncestorListener(new AncestorListener() {
-         @Override
-         public void ancestorAdded(AncestorEvent event) {
-         }
-         @Override
-         public void ancestorRemoved(AncestorEvent event) {
-         }
-         @Override
-         public void ancestorMoved(AncestorEvent event) {
-         }
+//      zawartoscRozdzialu.addAncestorListener(new AncestorListener() {
+//         @Override
+//         public void ancestorAdded(AncestorEvent event) {
+//         }
+//         @Override
+//         public void ancestorRemoved(AncestorEvent event) {
+//         }
+//         @Override
+//         public void ancestorMoved(AncestorEvent event) {
+//         }
+//      });
+      
+      pokaz.addActionListener((ActionEvent e) -> {
       });
       
-      pokaz.addActionListener(new ActionListener() {
-         @Override
-         public void actionPerformed(ActionEvent e) {
+      ukryjPokaz.addActionListener((ActionEvent e) -> {
+            if (slowka.isSelected()) {
+               wyborListy=(Tresc)((JList)e.getSource()).getSelectedValue();
+               listaPomocniczaSlowek("C:\\Users\\DELL\\Documents\\Forrest Gump\\" + wyborListy.tytulAN + ".txt",oknoANG);
+            } else {
+               czytajPlik("C:\\Users\\DELL\\Documents\\Forrest Gump\\" + wyborListy.tytulAN + ".txt",oknoANG);
+               czytajPlik("C:\\Users\\DELL\\Documents\\Forrest Gump\\" + wyborListy.tytulPL + ".txt",oknoPOL);
+            }
+         if (widac) {
+            polPane.setVisible(false);
+            angPane.setVisible(false);
+            widac=false;
          }
-      });
-      
-      ukryjPokaz.addActionListener(new ActionListener() {
-         @Override
-         public void actionPerformed(ActionEvent e) {
-          if (widac) {
-             polPane.setVisible(false); 
-             angPane.setVisible(false); 
-             widac=false;
-          }
-             else {
-             polPane.setVisible(true);
-             angPane.setVisible(true);
-             widac=true;
-          }
+         else {
+            polPane.setVisible(true);
+            angPane.setVisible(true);
+            widac=true;
          }
       });
 
@@ -329,16 +332,12 @@ public final class PodzialPanelu extends JFrame {
       panelPrawy.add(porownaj);
       
       
-      zapiszSlowka.addActionListener(new ActionListener() {
-         public void actionPerformed(ActionEvent e) {
-            zapiszPlik("C:\\Users\\DELL\\Documents\\Forrest Gump\\" + wyborListy.tytulAN + "_slowka.txt", oknoANG, oknoPOL);
-         }
+      zapiszSlowka.addActionListener((ActionEvent e) -> {
+         zapiszPlik("C:\\Users\\DELL\\Documents\\Forrest Gump\\" + wyborListy.tytulAN + "_slowka.txt", oknoANG, oknoPOL);
       });
       
-      zapiszZdania.addActionListener(new ActionListener() {
-         public void actionPerformed(ActionEvent e) {
-            zapiszPlik("C:\\Users\\DELL\\Documents\\Forrest Gump\\" + wyborListy.tytulPL + "_zdania.txt",oknoANG, oknoPOL);
-         }
+      zapiszZdania.addActionListener((ActionEvent e) -> {
+         zapiszPlik("C:\\Users\\DELL\\Documents\\Forrest Gump\\" + wyborListy.tytulPL + "_zdania.txt",oknoANG, oknoPOL);
       });
       
       spisTresci.addListSelectionListener((ListSelectionEvent e) -> {
@@ -348,14 +347,16 @@ public final class PodzialPanelu extends JFrame {
             wyborListy=(Tresc)((JList)e.getSource()).getSelectedValue();
             czytajRozdzial("C:\\Users\\DELL\\Documents\\Forrest Gump\\" + wyborListy.tytulAN + ".txt");
             wczytaj_Sl_ZD("C:\\Users\\DELL\\Documents\\Forrest Gump\\" + wyborListy.tytulAN + "_slowka.txt", slowaPolskie);
+            wczytaj("C:\\Users\\DELL\\Documents\\Forrest Gump\\" + wyborListy.tytulAN + "_slowka.txt", Slowa);
             wczytaj_Sl_ZD("C:\\Users\\DELL\\Documents\\Forrest Gump\\" + wyborListy.tytulAN + "_zdania.txt", zdaniaPolskie);
-            if (slowka.isSelected()) {
-               wyborListy=(Tresc)((JList)e.getSource()).getSelectedValue();
-               listaPomocniczaSlowek("C:\\Users\\DELL\\Documents\\Forrest Gump\\" + wyborListy.tytulAN + ".txt",oknoANG);
-            } else {
-               czytajPlik("C:\\Users\\DELL\\Documents\\Forrest Gump\\" + wyborListy.tytulAN + ".txt",oknoANG);
-               czytajPlik("C:\\Users\\DELL\\Documents\\Forrest Gump\\" + wyborListy.tytulPL + ".txt",oknoPOL);
-            }
+            wczytaj("C:\\Users\\DELL\\Documents\\Forrest Gump\\" + wyborListy.tytulAN + "_zdania.txt", Zdania);
+//            if (slowka.isSelected()) {
+//               wyborListy=(Tresc)((JList)e.getSource()).getSelectedValue();
+//               listaPomocniczaSlowek("C:\\Users\\DELL\\Documents\\Forrest Gump\\" + wyborListy.tytulAN + ".txt",oknoANG);
+//            } else {
+//               czytajPlik("C:\\Users\\DELL\\Documents\\Forrest Gump\\" + wyborListy.tytulAN + ".txt",oknoANG);
+//               czytajPlik("C:\\Users\\DELL\\Documents\\Forrest Gump\\" + wyborListy.tytulPL + ".txt",oknoPOL);
+//            }
          }
       });
      
@@ -415,6 +416,24 @@ public final class PodzialPanelu extends JFrame {
       } 
    }
    
+   
+   //Nigdzie nie wykorzystywaqna próba zapisu poprzez kolekcję
+   static void zapiszPlikKolekcja(String rozdzial, JTextArea oknoA, JTextArea oknoP){
+      try {
+         try (BufferedWriter tmpOut = new BufferedWriter(new FileWriter(rozdzial))) {
+            Scanner scanerA = new Scanner(oknoA.getText());
+            Scanner scanerP = new Scanner(oknoP.getText());
+            while (scanerA.hasNext()){
+               tmpOut.write(scanerA.nextLine()+" | "+scanerP.nextLine()+"\n");
+            }
+            tmpOut.close();
+         }
+      } catch (IOException ex) {
+         System.out.println(ex.getMessage());
+      } finally {
+      } 
+   }
+   
    static void listaPomocniczaSlowek(String sciezkaPomSlowka, JTextArea oknoA){
       try {
          JTextArea tmpArea;
@@ -435,6 +454,7 @@ public final class PodzialPanelu extends JFrame {
       }
    }
    
+   // słowa i zdania są wczytane do tablicy "stringowej" - NIEPOTRZEBNA METODA
    static void wczytaj_Sl_ZD(String sciezkaSlowka, String[] tablica){
       try {
          try (BufferedReader tmpInSlowkaZdania = new BufferedReader(new FileReader(sciezkaSlowka))) {
@@ -457,6 +477,39 @@ public final class PodzialPanelu extends JFrame {
                      i=(i+j)-1;
                   }
                   i++;
+               }
+            }
+            tmpInSlowkaZdania.close();
+         }
+      } catch (IOException ex) {
+         System.out.println(ex.getMessage());
+      } finally {
+      }
+   }
+   
+      // słowa i zdania wczytane są do kolecji Slowa i Zdania typu ArrayList
+      static void wczytaj(String sciezkaSlowka, ArrayList tablica){
+      try {
+         try (BufferedReader tmpInSlowkaZdania = new BufferedReader(new FileReader(sciezkaSlowka))) {
+            String tmpLinia;
+            String slowo_zdanie_A;
+            String slowo_zdanie_P;
+            tablica.clear();
+         //   int i=0;
+            int j;
+            while ((tmpLinia = tmpInSlowkaZdania.readLine()) != null){
+               StringTokenizer token = new StringTokenizer(tmpLinia, "|");
+               while (token.countTokens()>0) {
+                  slowo_zdanie_A=token.nextToken();
+                  slowo_zdanie_P=token.nextToken().trim();
+                  tablica.add(slowo_zdanie_P);
+                  if (!slowo_zdanie_A.equals(" ")) {
+                     for (j=1;j<slowo_zdanie_A.length(); j++){
+                       tablica.add(slowo_zdanie_P);
+                     }
+              //       i=(i+j)-1;
+                  }
+              //    i++;
                }
             }
             tmpInSlowkaZdania.close();
@@ -507,12 +560,13 @@ public final class PodzialPanelu extends JFrame {
   
    static void zapiszRozdzial(String rozdzial){
       try {
-         BufferedWriter tmp = new BufferedWriter(new FileWriter(rozdzial));
-         Scanner scaner = new Scanner(zawartoscRozdzialu.getText());
-         while (scaner.hasNext()){
-            tmp.write(scaner.nextLine()+"\n");
+         try (BufferedWriter tmp = new BufferedWriter(new FileWriter(rozdzial))) {
+            Scanner scaner = new Scanner(zawartoscRozdzialu.getText());
+            while (scaner.hasNext()){
+               tmp.write(scaner.nextLine()+"\n");
+            }
+            tmp.close();
          }
-         tmp.close();
       } catch (IOException ex) {
          System.out.println(ex.getMessage());
       } finally {
@@ -521,8 +575,10 @@ public final class PodzialPanelu extends JFrame {
    
    public static void main(String[] args) {
        czytajRozdzial("C:\\Users\\DELL\\Documents\\Forrest Gump\\Contents.txt");
-       wczytaj_Sl_ZD("C:\\Users\\DELL\\Documents\\Forrest Gump\\Contents_slowka.txt", slowaPolskie);
-       wczytaj_Sl_ZD("C:\\Users\\DELL\\Documents\\Forrest Gump\\Contents_zdania.txt", zdaniaPolskie);
+       //wczytaj_Sl_ZD("C:\\Users\\DELL\\Documents\\Forrest Gump\\Contents_slowka.txt", slowaPolskie);
+       //wczytaj_Sl_ZD("C:\\Users\\DELL\\Documents\\Forrest Gump\\Contents_zdania.txt", zdaniaPolskie);
+       wczytaj("C:\\Users\\DELL\\Documents\\Forrest Gump\\Contents_slowka.txt", Slowa);
+       wczytaj("C:\\Users\\DELL\\Documents\\Forrest Gump\\Contents_zdania.txt", Zdania);
       new PodzialPanelu().setVisible(true);
       String znak = File.separator;  
       try {
@@ -540,5 +596,4 @@ public final class PodzialPanelu extends JFrame {
          System.out.println(ex.getMessage());
       }
    }
-    
 }
