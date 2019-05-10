@@ -28,6 +28,30 @@ import javax.swing.text.StyleConstants;
  */
 public final class PodzialPanelu extends JFrame {
 
+   public static void main(String[] args) {
+      czytajRozdzial("C:\\Users\\DELL\\Documents\\Forrest Gump\\Contents.txt");
+      //wczytaj_Sl_ZD("C:\\Users\\DELL\\Documents\\Forrest Gump\\Contents_slowka.txt", slowaPolskie);
+      //wczytaj_Sl_ZD("C:\\Users\\DELL\\Documents\\Forrest Gump\\Contents_zdania.txt", zdaniaPolskie);
+      wczytaj("C:\\Users\\DELL\\Documents\\Forrest Gump\\Contents_slowka.txt", Slowa);
+      wczytaj("C:\\Users\\DELL\\Documents\\Forrest Gump\\Contents_zdania.txt", Zdania);
+      new PodzialPanelu().setVisible(true);
+      String znak = File.separator;
+      try {
+         File plik = new File("C:" + znak + "Users" + znak + "DELL" + znak + "Documents" + znak + "Forrest Gump" + znak + "IntroductionR.txt");
+         File folder = new File("C:" + znak + "Users" + znak + "DELL" + znak + "Documents" + znak + "Forrest Gump" + znak);
+         if (!plik.exists())
+            plik.createNewFile();
+         else {
+            Date modyfikacja = new Date(plik.lastModified());
+            menu.setText(modyfikacja.toString() + " ||   Ilość znaków: " + plik.length());
+            menu.setText(menu.getText() + " ||  ścieżka do pliku: " + plik.getPath());
+            wypiszSciezki(folder);
+         }
+      } catch (IOException ex) {
+         System.out.println(ex.getMessage());
+      }
+   }
+
 
  
    public PodzialPanelu() {
@@ -47,7 +71,7 @@ public final class PodzialPanelu extends JFrame {
    JPanel panelSrodek = new JPanel();
    JPanel panelDolny = new JPanel();
    JList spisTresci = new JList(new Tresc[] {
-      new Tresc("IntroductionR", "Wprowadzenie", "Krótki opis wprowadzenia"),
+      new Tresc("Introduction", "Wprowadzenie", "Krótki opis wprowadzenia"),
       new Tresc("Contents", "Spisu treści", "Krótki opis spisu treści"),
       new Tresc("Chapter 1", "Część 1", "Krótki opis rozdziału 1"), 
       new Tresc("Chapter 2", "Część 2", "Krótki opis rozdziału 2"), 
@@ -573,27 +597,5 @@ public final class PodzialPanelu extends JFrame {
       } 
    }
    
-   public static void main(String[] args) {
-       czytajRozdzial("C:\\Users\\DELL\\Documents\\Forrest Gump\\Contents.txt");
-       //wczytaj_Sl_ZD("C:\\Users\\DELL\\Documents\\Forrest Gump\\Contents_slowka.txt", slowaPolskie);
-       //wczytaj_Sl_ZD("C:\\Users\\DELL\\Documents\\Forrest Gump\\Contents_zdania.txt", zdaniaPolskie);
-       wczytaj("C:\\Users\\DELL\\Documents\\Forrest Gump\\Contents_slowka.txt", Slowa);
-       wczytaj("C:\\Users\\DELL\\Documents\\Forrest Gump\\Contents_zdania.txt", Zdania);
-      new PodzialPanelu().setVisible(true);
-      String znak = File.separator;  
-      try {
-         File plik = new File("C:" + znak + "Users" + znak + "DELL" + znak + "Documents" + znak + "Forrest Gump" + znak + "IntroductionR.txt");
-         File folder = new File("C:" + znak + "Users" + znak + "DELL" + znak + "Documents" + znak + "Forrest Gump" + znak);
-         if (!plik.exists())
-            plik.createNewFile();
-         else {
-            Date modyfikacja = new Date(plik.lastModified());
-            menu.setText(modyfikacja.toString() + " ||   Ilość znaków: " + plik.length());
-            menu.setText(menu.getText() + " ||  ścieżka do pliku: " + plik.getPath());
-            wypiszSciezki(folder);
-         }
-      } catch (IOException ex) {
-         System.out.println(ex.getMessage());
-      }
-   }
+
 }
