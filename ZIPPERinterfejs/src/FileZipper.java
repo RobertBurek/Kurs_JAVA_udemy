@@ -27,6 +27,12 @@ public class FileZipper extends JFrame {
         public Object get(int index) {
             return lista.get(index);
         }
+
+        @Override
+        public Object remove(int index) {
+            lista.remove(index);
+            return super.remove(index);
+        }
     };
     private JList lista = new JList(modelListy);
 
@@ -112,11 +118,10 @@ public class FileZipper extends JFrame {
         }
 
         public void actionPerformed(ActionEvent e) {
-            if (e.getActionCommand().equals("Dodaj")) {
+            if (e.getActionCommand().equals("Dodaj"))
                 dodajWpisyDoArchiwum();
-                System.out.println("Dodawanie");
-            } else if (e.getActionCommand().equals("Usuń"))
-                System.out.println("Usuwanie");
+            else if (e.getActionCommand().equals("Usuń"))
+                usuwanieWpisowZList();
             else if (e.getActionCommand().equals("Zip"))
                 System.out.println("Zipowanie");
             else if (e.getActionCommand().equals("O mnie"))
@@ -125,26 +130,31 @@ public class FileZipper extends JFrame {
                 System.out.println("Czyszczę listę");
         }
 
-    }
-
-    private void dodajWpisyDoArchiwum() {
-        wybieracz.setCurrentDirectory(new File(System.getProperty("user.dir")));
-        wybieracz.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-        wybieracz.setMultiSelectionEnabled(true);
-        int tmp = wybieracz.showDialog(rootPane, "Dodaj do archiwum");
-        if (tmp == JFileChooser.APPROVE_OPTION) {
-            File[] sciezki = wybieracz.getSelectedFiles();
-            for (int i = 0; i < sciezki.length; i++)
-                if (!czyWpisSiePowtarza(sciezki[i].getPath()))
-                    modelListy.addElement(sciezki[i]);
+        private void usuwanieWpisowZList() {
+            int[] tmp = lista.getSelectedIndices();
+            for (int i = 0; i < tmp.length; i++)
+                modelListy.remove(tmp[i] - i);
         }
-    }
 
-    private boolean czyWpisSiePowtarza(String testowanyWpis) {
-        for (int i = 0; i < modelListy.getSize(); i++)
-            if (((File) modelListy.get(i)).getPath().equals(testowanyWpis))
-                return true;
-        return false;
+        private void dodajWpisyDoArchiwum() {
+            wybieracz.setCurrentDirectory(new File(System.getProperty("user.dir")));
+            wybieracz.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+            wybieracz.setMultiSelectionEnabled(true);
+            int tmp = wybieracz.showDialog(rootPane, "Dodaj do archiwum");
+            if (tmp == JFileChooser.APPROVE_OPTION) {
+                File[] sciezki = wybieracz.getSelectedFiles();
+                for (int i = 0; i < sciezki.length; i++)
+                    if (!czyWpisSiePowtarza(sciezki[i].getPath()))
+                        modelListy.addElement(sciezki[i]);
+            }
+        }
+
+        private boolean czyWpisSiePowtarza(String testowanyWpis) {
+            for (int i = 0; i < modelListy.getSize(); i++)
+                if (((File) modelListy.get(i)).getPath().equals(testowanyWpis))
+                    return true;
+            return false;
+        }
     }
 }
 
