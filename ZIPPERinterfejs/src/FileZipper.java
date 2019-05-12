@@ -1,7 +1,9 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
-import java.io.File;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 /**
  * Created by Robert Burek
@@ -106,6 +108,10 @@ public class FileZipper extends JFrame {
 
 
     private class Akcja extends AbstractAction {
+
+        public static final int BUFFOR = 1024;
+        ArrayList listaSciezek = new ArrayList();
+
         public Akcja(String nazwa, String opis, String klawiaturowySkrot) {
             this.putValue(Action.NAME, nazwa);
             this.putValue(Action.SHORT_DESCRIPTION, opis);
@@ -123,12 +129,59 @@ public class FileZipper extends JFrame {
             else if (e.getActionCommand().equals("Usuń"))
                 usuwanieWpisowZList();
             else if (e.getActionCommand().equals("Zip"))
-                System.out.println("Zipowanie");
+                stworzArchiwumZip();
             else if (e.getActionCommand().equals("O mnie"))
                 System.out.println("Robert Burek");
             else if (e.getActionCommand().equals("Wyczyść"))
                 System.out.println("Czyszczę listę");
         }
+
+        private void stworzArchiwumZip() {
+            wybieracz.setCurrentDirectory(new File(System.getProperty("user.dir")));
+            wybieracz.setSelectedFile(new File(System.getProperty("user.dir") + File.separator + "mojanazwa.zip"));
+            int tmp = wybieracz.showDialog(rootPane, "Kompresuj");
+            if (tmp == JFileChooser.APPROVE_OPTION) {
+                byte tmpData[] = new byte[BUFFOR];
+                try {
+                    ZipOutputStream zOutS = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(wybieracz.getSelectedFile()), BUFFOR));
+                    for (int i = 0; i < modelListy.getSize(); i++) {
+                        if (!((File) modelListy.get(i)).isDirectory())
+                            zipuj(zOutS, (File) modelListy.get(i), tmpData, ((File) modelListy.get(i)).getPath());
+                        else {
+                            wypiszSciezki((File) modelListy.get(i));
+                            for (int j = 0; j < listaSciezek.size(); j++)
+                                zipuj(zOutS, (File) listaSciezek.get(j), tmpData, ((File) modelListy.get(i)).getPath());
+                            listaSciezek.removeAll(listaSciezek);
+                        }
+                    }
+                    zOutS.close();
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+        }
+
+        private void zipuj(ZipOutputStream zOutS, File sciezkaPliku, byte[] tmpData, String sciezkaBazowa) throws IOException {
+            BufferedInputStream inS = new BufferedInputStream(new FileInputStream(sciezkaPliku), BUFFOR);
+            zOutS.putNextEntry(new ZipEntry(sciezkaPliku.getPath().substring(sciezkaBazowa.lastIndexOf(File.separator) + 1)));
+            int counter;
+            while ((counter = inS.read(tmpData, 0, BUFFOR)) != -1)
+                zOutS.write(tmpData, 0, counter);
+            zOutS.closeEntry();
+            inS.close();
+        }
+
+        private void wypiszSciezki(File nazwaSciezki) {
+            String[] nazwyPlikowIKatalogow = nazwaSciezki.list();
+            for (int i = 0; i < nazwyPlikowIKatalogow.length; i++) {
+                File p = new File(nazwaSciezki.getPath(), nazwyPlikowIKatalogow[i]);
+                if (p.isFile())
+                    listaSciezek.add(p);
+                if (p.isDirectory())
+                    wypiszSciezki(new File(p.getPath()));
+            }
+        }
+
 
         private void usuwanieWpisowZList() {
             int[] tmp = lista.getSelectedIndices();
