@@ -1,16 +1,34 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.io.File;
+import java.util.ArrayList;
 
 /**
  * Created by Robert Burek
  */
 public class FileZipper extends JFrame {
-    private JList lista = new JList();
+
     private JButton bDodaj;
     private JButton bUsun;
     private JButton bZip;
     private JButton bWyczysc;
     private JMenuBar pasekMenu = new JMenuBar();
+    private JFileChooser wybieracz = new JFileChooser();
+    private DefaultListModel modelListy = new DefaultListModel() {
+        ArrayList lista = new ArrayList();
+
+        @Override
+        public void addElement(Object obj) {
+            lista.add(obj);
+            super.addElement(((File) obj).getName());
+        }
+
+        @Override
+        public Object get(int index) {
+            return lista.get(index);
+        }
+    };
+    private JList lista = new JList(modelListy);
 
     public static void main(String[] args) {
         new FileZipper().setVisible(true);
@@ -46,12 +64,14 @@ public class FileZipper extends JFrame {
         lista.setBorder(BorderFactory.createEtchedBorder());
         GroupLayout layout = new GroupLayout(this.getContentPane());
 
+        JScrollPane scrollPane = new JScrollPane(lista);
+
         layout.setAutoCreateContainerGaps(true);
         layout.setAutoCreateGaps(true);
 
         layout.setHorizontalGroup(
                 layout.createSequentialGroup()
-                        .addComponent(lista, 200, 250, Short.MAX_VALUE)
+                        .addComponent(scrollPane, 200, 250, Short.MAX_VALUE)
                         .addContainerGap(0, 20)
                         .addGroup(
                                 layout.createParallelGroup()
@@ -63,7 +83,7 @@ public class FileZipper extends JFrame {
 
         layout.setVerticalGroup(
                 layout.createParallelGroup()
-                        .addComponent(lista, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(
                                 layout.createSequentialGroup()
                                         .addComponent(bDodaj)
@@ -92,9 +112,10 @@ public class FileZipper extends JFrame {
         }
 
         public void actionPerformed(ActionEvent e) {
-            if (e.getActionCommand().equals("Dodaj"))
+            if (e.getActionCommand().equals("Dodaj")) {
+                dodajWpisyDoArchiwum();
                 System.out.println("Dodawanie");
-            else if (e.getActionCommand().equals("Usuń"))
+            } else if (e.getActionCommand().equals("Usuń"))
                 System.out.println("Usuwanie");
             else if (e.getActionCommand().equals("Zip"))
                 System.out.println("Zipowanie");
@@ -104,6 +125,26 @@ public class FileZipper extends JFrame {
                 System.out.println("Czyszczę listę");
         }
 
+    }
+
+    private void dodajWpisyDoArchiwum() {
+        wybieracz.setCurrentDirectory(new File(System.getProperty("user.dir")));
+        wybieracz.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+        wybieracz.setMultiSelectionEnabled(true);
+        int tmp = wybieracz.showDialog(rootPane, "Dodaj do archiwum");
+        if (tmp == JFileChooser.APPROVE_OPTION) {
+            File[] sciezki = wybieracz.getSelectedFiles();
+            for (int i = 0; i < sciezki.length; i++)
+                if (!czyWpisSiePowtarza(sciezki[i].getPath()))
+                    modelListy.addElement(sciezki[i]);
+        }
+    }
+
+    private boolean czyWpisSiePowtarza(String testowanyWpis) {
+        for (int i = 0; i < modelListy.getSize(); i++)
+            if (((File) modelListy.get(i)).getPath().equals(testowanyWpis))
+                return true;
+        return false;
     }
 }
 
