@@ -6,12 +6,14 @@
       <module fileurl="file://$PROJECT_DIR$/ArchiwizacjaDanychZip/ArchiwizacjaDanychZip.iml" filepath="$PROJECT_DIR$/ArchiwizacjaDanychZip/ArchiwizacjaDanychZip.iml" />
       <module fileurl="file://$PROJECT_DIR$/GZIPkontraZIP/GZIPkontraZIP.iml" filepath="$PROJECT_DIR$/GZIPkontraZIP/GZIPkontraZIP.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/Kurs_JAVA_udemy.iml" filepath="$PROJECT_DIR$/.idea/Kurs_JAVA_udemy.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MetodaJOIN/MetodaJOIN.iml" filepath="$PROJECT_DIR$/MetodaJOIN/MetodaJOIN.iml" />
       <module fileurl="file://$PROJECT_DIR$/OknoWyboruPlikow/OknoWyboruPlikow.iml" filepath="$PROJECT_DIR$/OknoWyboruPlikow/OknoWyboruPlikow.iml" />
       <module fileurl="file://$PROJECT_DIR$/Rysowanie/Rysowanie.iml" filepath="$PROJECT_DIR$/Rysowanie/Rysowanie.iml" />
       <module fileurl="file://$PROJECT_DIR$/TestSiatki/TestSiatki.iml" filepath="$PROJECT_DIR$/TestSiatki/TestSiatki.iml" />
       <module fileurl="file://$PROJECT_DIR$/Tokenizacja/Tokenizacja.iml" filepath="$PROJECT_DIR$/Tokenizacja/Tokenizacja.iml" />
       <module fileurl="file://$PROJECT_DIR$/WiemCoCzytam/WiemCoCzytam.iml" filepath="$PROJECT_DIR$/WiemCoCzytam/WiemCoCzytam.iml" />
       <module fileurl="file://$PROJECT_DIR$/ZIPPERinterfejs/ZIPPERinterfejs.iml" filepath="$PROJECT_DIR$/ZIPPERinterfejs/ZIPPERinterfejs.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SynchronizacjaWatkow/SynchronizacjaWatkow.iml" filepath="$PROJECT_DIR$/SynchronizacjaWatkow/SynchronizacjaWatkow.iml" />
     </modules>
   </component>
 </project>
