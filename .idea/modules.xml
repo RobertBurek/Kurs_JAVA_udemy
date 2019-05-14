@@ -18,6 +18,7 @@
       <module fileurl="file://$PROJECT_DIR$/TestSiatki/TestSiatki.iml" filepath="$PROJECT_DIR$/TestSiatki/TestSiatki.iml" />
       <module fileurl="file://$PROJECT_DIR$/Tokenizacja/Tokenizacja.iml" filepath="$PROJECT_DIR$/Tokenizacja/Tokenizacja.iml" />
       <module fileurl="file://$PROJECT_DIR$/TypyGeneryczne/TypyGeneryczne.iml" filepath="$PROJECT_DIR$/TypyGeneryczne/TypyGeneryczne.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TypyGeneryczneWildCards/TypyGeneryczneWildCards.iml" filepath="$PROJECT_DIR$/TypyGeneryczneWildCards/TypyGeneryczneWildCards.iml" />
       <module fileurl="file://$PROJECT_DIR$/WiemCoCzytam/WiemCoCzytam.iml" filepath="$PROJECT_DIR$/WiemCoCzytam/WiemCoCzytam.iml" />
       <module fileurl="file://$PROJECT_DIR$/ZIPPERinterfejs/ZIPPERinterfejs.iml" filepath="$PROJECT_DIR$/ZIPPERinterfejs/ZIPPERinterfejs.iml" />
     </modules>
