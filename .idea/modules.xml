@@ -18,6 +18,7 @@
       <module fileurl="file://$PROJECT_DIR$/MetodyGeneryczne/MetodyGeneryczne.iml" filepath="$PROJECT_DIR$/MetodyGeneryczne/MetodyGeneryczne.iml" />
       <module fileurl="file://$PROJECT_DIR$/OknoWyboruPlikow/OknoWyboruPlikow.iml" filepath="$PROJECT_DIR$/OknoWyboruPlikow/OknoWyboruPlikow.iml" />
       <module fileurl="file://$PROJECT_DIR$/PriorytetyWatkow/PriorytetyWatkow.iml" filepath="$PROJECT_DIR$/PriorytetyWatkow/PriorytetyWatkow.iml" />
+      <module fileurl="file://$PROJECT_DIR$/QueueEvent/QueueEvent.iml" filepath="$PROJECT_DIR$/QueueEvent/QueueEvent.iml" />
       <module fileurl="file://$PROJECT_DIR$/ReentrantLock/ReentrantLock.iml" filepath="$PROJECT_DIR$/ReentrantLock/ReentrantLock.iml" />
       <module fileurl="file://$PROJECT_DIR$/Rysowanie/Rysowanie.iml" filepath="$PROJECT_DIR$/Rysowanie/Rysowanie.iml" />
       <module fileurl="file://$PROJECT_DIR$/SkrzynkaButelek/SkrzynkaButelek.iml" filepath="$PROJECT_DIR$/SkrzynkaButelek/SkrzynkaButelek.iml" />
