@@ -10,6 +10,7 @@
       <module fileurl="file://$PROJECT_DIR$/GZIPkontraZIP/GZIPkontraZIP.iml" filepath="$PROJECT_DIR$/GZIPkontraZIP/GZIPkontraZIP.iml" />
       <module fileurl="file://$PROJECT_DIR$/HashCode/HashCode.iml" filepath="$PROJECT_DIR$/HashCode/HashCode.iml" />
       <module fileurl="file://$PROJECT_DIR$/HashSetITreeSet/HashSetITreeSet.iml" filepath="$PROJECT_DIR$/HashSetITreeSet/HashSetITreeSet.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Kolejki/Kolejki.iml" filepath="$PROJECT_DIR$/Kolejki/Kolejki.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/Kurs_JAVA_udemy.iml" filepath="$PROJECT_DIR$/.idea/Kurs_JAVA_udemy.iml" />
       <module fileurl="file://$PROJECT_DIR$/LinkedHashMapISet/LinkedHashMapISet.iml" filepath="$PROJECT_DIR$/LinkedHashMapISet/LinkedHashMapISet.iml" />
       <module fileurl="file://$PROJECT_DIR$/MapKeyValue/MapKeyValue.iml" filepath="$PROJECT_DIR$/MapKeyValue/MapKeyValue.iml" />
@@ -29,6 +30,7 @@
       <module fileurl="file://$PROJECT_DIR$/TypyGeneryczne/TypyGeneryczne.iml" filepath="$PROJECT_DIR$/TypyGeneryczne/TypyGeneryczne.iml" />
       <module fileurl="file://$PROJECT_DIR$/TypyGeneryczneWildCards/TypyGeneryczneWildCards.iml" filepath="$PROJECT_DIR$/TypyGeneryczneWildCards/TypyGeneryczneWildCards.iml" />
       <module fileurl="file://$PROJECT_DIR$/WiemCoCzytam/WiemCoCzytam.iml" filepath="$PROJECT_DIR$/WiemCoCzytam/WiemCoCzytam.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Wyszukiwarka/Wyszukiwarka.iml" filepath="$PROJECT_DIR$/Wyszukiwarka/Wyszukiwarka.iml" />
       <module fileurl="file://$PROJECT_DIR$/ZIPPERinterfejs/ZIPPERinterfejs.iml" filepath="$PROJECT_DIR$/ZIPPERinterfejs/ZIPPERinterfejs.iml" />
     </modules>
   </component>
